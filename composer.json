@@ -1,0 +1,29 @@
+{
+    "name": "lain/laravel-operator",
+    "keywords": ["laravel", "helper"],
+    "license": "MIT",
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^8.0|^9.0",
+        "illuminate/database": "^8.0|^9.0"
+    },
+    "require-dev": {
+        "pestphp/pest": "^1.22"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lain\\LaravelOperator\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "xuliangTang",
+            "email": "1297441127@qq.com"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
