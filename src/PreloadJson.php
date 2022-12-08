@@ -68,11 +68,8 @@ class PreloadJson
     {
         $fields = array_merge($select, ['id']);
         $itemIds = $this->getPreloadingIds();
-        //$items = $preloadModel->whereIn('id', $itemIds)->select($fields)->get()->toArray();
-        $items = [
-            ['id' => 1, 'name' => 'testA'],
-            ['id' => 2, 'name' => 'testB'],
-        ];
+        $items = $preloadModel->whereIn('id', $itemIds)->select($fields)->get()->toArray();
+
         $storedItems = [];
         foreach ($items as $item) {
             $storedItems[$item['id']] = $item;
