@@ -15,6 +15,16 @@
             "Lain\\LaravelOperator\\": "src/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Lain\\LaravelOperator\\OperatorProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
     "authors": [
         {
             "name": "xuliangTang",
