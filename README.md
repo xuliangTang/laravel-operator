@@ -14,7 +14,7 @@ $ composer require lain/laravel-operator
 
 ## 功能
 
-### PreloadJson
+### Preload JSON
 
 可以预加载 db 中字段为 json 类型的关联关系。
 
@@ -61,5 +61,46 @@ public function toArray($request)
         'composes' => PreloadJson::fetchValue($this->storedArtists, $this->compose_ids)
     ];
 }
+```
+
+
+
+### SQL Debug
+
+可以轻松的获取完整的 sql 语句
+
+#### 获取单条 sql
+
+```
+$sql = User::query()->where('id', '>', 500)
+            ->where(function ($query) {
+                $query->whereIn('mode', [1,2,4,5])
+                    ->orWhere('status', 1);
+            })
+            ->limit(10)->sql();
+```
+
+#### 监听所有执行的 sql
+
+```
+DB::connection()->enableQueryLog();
+User::query()->where('id', '>', 500)
+            ->where(function ($query) {
+                $query->whereIn('mode', [1,2,4,5])
+                    ->orWhere('status', 1);
+            })
+            ->limit(10)->get();
+```
+
+期间所有的 sql 语句会被输出到日志中
+
+```
+$ tail -f ./storage/logs/laravel.log
+```
+
+```
+[2022-12-09 18:44:34] local.INFO: [sql] select * from "oauth_clients" where "id" = 1 limit 1  
+[2022-12-09 18:44:34] local.INFO: [sql] select "roles".*, "model_has_roles"."model_id" as "pivot_model_id", "model_has_roles"."role_id" as "pivot_role_id", "model_has_roles"."model_type" as "pivot_model_type" from "roles" inner join "model_has_roles" on "roles"."id" = "model_has_roles"."role_id" where "model_has_roles"."model_id" in (2) and "model_has_roles"."model_type" = 'App\Models\OrganizationMember'  
+[2022-12-09 18:44:34] local.INFO: [sql] select * from "users" where "id" > 500 and ("mode" in (1, 2, 4, 5) or "status" = 1) limit 10  
 ```
 
